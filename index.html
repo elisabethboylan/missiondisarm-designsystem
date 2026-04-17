@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Disarm — Design System v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --surface: #111111;
+    --surface-2: #1a1a1a;
+    --pink: #ff2d78;
+    --pink-dim: rgba(255,45,120,0.15);
+    --pink-glow: rgba(255,45,120,0.35);
+    --teal: #4ecdc4;
+    --teal-dim: rgba(78,205,196,0.1);
+    --sand: #c8b89a;
+    --white: #e8e8e0;
+    --muted: rgba(232,232,224,0.5);
+    --faint: rgba(255,255,255,0.06);
+    --border-pink: rgba(255,45,120,0.3);
+    --border-teal: rgba(78,205,196,0.3);
+    --grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M 32 0 L 0 0 0 32' fill='none' stroke='rgba(255,45,120,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+    --font-display: 'Orbitron', monospace;
+    --font-body: 'Courier New', Courier, monospace;
+  }
+
+  body {
+    background: var(--black);
+    background-image: var(--grid);
+    color: var(--white);
+    font-family: var(--font-display);
+    line-height: 1.6;
+    padding: 3rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ─── HEADER ─── */
+  .sys-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--pink);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .logo-mark {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--pink);
+    text-shadow: 0 0 30px var(--pink-glow), 0 0 60px rgba(255,45,120,0.15);
+    line-height: 1;
+    letter-spacing: 3px;
+  }
+
+  .header-meta { text-align: right; }
+  .version { font-size: 9px; letter-spacing: 4px; color: var(--teal); text-transform: uppercase; }
+  .tagline { font-size: 10px; letter-spacing: 3px; color: var(--muted); margin-top: 6px; }
+
+  /* ─── SECTION ─── */
+  .section { margin-bottom: 3rem; }
+
+  .section-title {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--teal);
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-teal);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ─── COLORS ─── */
+  .color-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 1.5rem; }
+
+  .swatch { border-radius: 3px; overflow: hidden; border: 1px solid var(--faint); }
+  .swatch-color { height: 64px; position: relative; }
+  .swatch-info { padding: 10px; background: var(--surface); }
+  .swatch-name { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 3px; }
+  .swatch-hex { font-family: var(--font-body); font-size: 10px; color: #555; display: block; }
+  .swatch-role { font-size: 8px; color: #444; letter-spacing: 1px; margin-top: 4px; display: block; }
+
+  .usage-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .usage-pill { padding: 12px 14px; border-radius: 2px; }
+  .usage-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; }
+  .usage-text { font-family: var(--font-body); font-size: 10px; color: #666; line-height: 1.8; }
+
+  /* ─── TYPOGRAPHY ─── */
+  .type-table { width: 100%; border-collapse: collapse; }
+  .type-table td { padding: 14px 0; border-bottom: 1px solid var(--faint); vertical-align: middle; }
+  .type-table td:first-child { width: 180px; }
+  .type-label { font-size: 8px; letter-spacing: 3px; color: var(--teal); text-transform: uppercase; display: block; }
+  .type-spec { font-family: var(--font-body); font-size: 9px; color: #555; display: block; margin-top: 3px; }
+
+  /* ─── COMPONENTS ─── */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .comp-block { background: var(--surface); border: 1px solid var(--faint); border-radius: 3px; padding: 1.25rem; }
+  .comp-label { font-size: 7px; letter-spacing: 4px; color: #444; text-transform: uppercase; display: block; margin-bottom: 1rem; }
+
+  /* Buttons */
+  .btn { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; padding: 11px 22px; cursor: pointer; border-radius: 1px; display: inline-block; margin: 0 8px 8px 0; transition: all 0.15s; }
+  .btn-primary { background: transparent; border: 1px solid var(--pink); color: var(--pink); }
+  .btn-primary:hover { background: var(--pink-dim); box-shadow: 0 0 12px var(--pink-glow); }
+  .btn-teal { background: transparent; border: 1px solid var(--teal); color: var(--teal); }
+  .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); }
+
+  .answer-btn { display: block; width: 100%; background: rgba(255,45,120,0.06); border: 1px solid var(--border-pink); color: rgba(255,255,255,0.7); font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; padding: 13px 14px; text-align: left; cursor: pointer; margin-bottom: 7px; transition: all 0.15s; }
+  .answer-btn:hover { background: rgba(255,45,120,0.12); }
+  .answer-btn.correct { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+  .answer-btn.wrong { border-color: rgba(255,45,120,0.3); color: rgba(255,45,120,0.5); text-decoration: line-through; opacity: 0.6; }
+
+  /* HUD */
+  .hud-row { display: flex; gap: 10px; }
+  .hud-stat { display: inline-flex; flex-direction: column; align-items: center; padding: 8px 14px; border: 1px solid var(--border-teal); border-radius: 1px; }
+  .hud-value { font-size: 20px; font-weight: 900; color: var(--white); line-height: 1; }
+  .hud-label { font-size: 7px; letter-spacing: 3px; color: var(--teal); text-transform: uppercase; margin-top: 4px; }
+
+  /* Feedback */
+  .feedback { padding: 14px 16px; margin-top: 8px; }
+  .feedback-ok { border: 1px solid var(--border-teal); background: rgba(78,205,196,0.04); }
+  .feedback-fail { border: 1px solid var(--border-pink); background: rgba(255,45,120,0.04); }
+  .feedback-status { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 7px; display: block; }
+  .feedback-body { font-family: var(--font-body); font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+  /* Progress */
+  .progress-track { height: 2px; background: rgba(255,255,255,0.08); margin: 8px 0 16px; }
+  .progress-fill { height: 100%; background: var(--pink); box-shadow: 0 0 8px var(--pink-glow); }
+
+  /* INTEL panel */
+  .intel-panel { border: 1px solid var(--border-teal); padding: 14px; }
+  .intel-title { font-size: 13px; letter-spacing: 4px; color: var(--teal); text-align: center; margin-bottom: 10px; }
+  .intel-body { font-family: var(--font-body); font-size: 10px; color: var(--pink); text-align: center; line-height: 1.8; }
+
+  /* ─── SPACING ─── */
+  .spacing-row { display: flex; gap: 14px; align-items: flex-end; }
+  .space-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .space-block { background: rgba(255,45,120,0.2); border: 1px solid rgba(255,45,120,0.4); width: 40px; }
+  .space-val { font-size: 9px; color: var(--pink); }
+  .space-name { font-size: 8px; color: #555; }
+
+  /* ─── MOTION ─── */
+  .motion-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .motion-card { background: var(--surface); border: 1px solid var(--faint); padding: 12px; border-radius: 2px; }
+  .motion-name { font-size: 8px; letter-spacing: 3px; color: var(--pink); text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .motion-val { font-family: var(--font-body); font-size: 10px; color: var(--teal); display: block; margin-bottom: 4px; }
+  .motion-use { font-size: 8px; color: #555; letter-spacing: 1px; }
+
+  /* ─── VOICE ─── */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .voice-block { padding: 16px; }
+  .voice-title { font-size: 8px; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 12px; }
+  .voice-list { font-family: var(--font-body); font-size: 11px; line-height: 2.2; }
+
+  /* ─── EFFECTS ─── */
+  .effects-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .effect-card { background: var(--surface); border: 1px solid var(--faint); padding: 14px; border-radius: 2px; }
+  .effect-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+  .effect-demo { height: 52px; border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+  .effect-desc { font-size: 8px; color: #555; letter-spacing: 1px; }
+
+  /* ─── FOOTER ─── */
+  .sys-footer { border-top: 1px solid var(--faint); margin-top: 3rem; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-text { font-size: 8px; letter-spacing: 3px; color: #444; text-transform: uppercase; }
+
+  hr.divider { border: none; border-top: 1px solid var(--faint); margin: 2.5rem 0; }
+
+  @media print {
+    body { padding: 1.5rem 2rem; }
+    .logo-mark { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sys-header">
+  <div>
+    <div style="font-size:9px;letter-spacing:4px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">Design System · v1.0</div>
+    <div class="logo-mark">MISSION<br>DISARM</div>
+  </div>
+  <div class="header-meta">
+    <div class="version">War Trivia · Landmine Cleanup</div>
+    <div class="tagline">UI Spec · April 2026</div>
+    <div class="tagline" style="margin-top:4px;">Elisabeth Boylan Ltd.</div>
+  </div>
+</header>
+
+<!-- COLORS -->
+<section class="section">
+  <div class="section-title">01 · Color System</div>
+  <div class="color-grid">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0a0a0a;border-bottom:1px solid #1a1a1a;background-image:var(--grid);"></div>
+      <div class="swatch-info">
+        <span class="swatch-name" style="color:var(--white);">Void Black</span>
+        <span class="swatch-hex">#0A0A0A</span>
+        <span class="swatch-role">Primary background</span>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#ff2d78;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name" style="color:var(--pink);">Neon Pink</span>
+        <span class="swatch-hex">#FF2D78</span>
+        <span class="swatch-role">Primary accent / CTA</span>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#4ecdc4;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name" style="color:var(--teal);">Teal</span>
+        <span class="swatch-hex">#4ECDC4</span>
+        <span class="swatch-role">Secondary / correct state</span>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#c8b89a;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name" style="color:var(--sand);">Sand</span>
+        <span class="swatch-hex">#C8B89A</span>
+        <span class="swatch-role">HUD / terrain neutral</span>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#111111;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name" style="color:#555;">Grid Surface</span>
+        <span class="swatch-hex">#111111</span>
+        <span class="swatch-role">Cards / panels</span>
+      </div>
+    </div>
+  </div>
+  <div class="usage-grid">
+    <div class="usage-pill" style="border-left:2px solid var(--pink);background:rgba(255,45,120,0.04);">
+      <span class="usage-label" style="color:var(--pink);">Neon Pink — #FF2D78</span>
+      <span class="usage-text">Logo · CTAs · wrong answer · danger · progress bar · glow effects</span>
+    </div>
+    <div class="usage-pill" style="border-left:2px solid var(--teal);background:rgba(78,205,196,0.04);">
+      <span class="usage-label" style="color:var(--teal);">Teal — #4ECDC4</span>
+      <span class="usage-text">Correct answers · HUD labels · section headers · success states</span>
+    </div>
+    <div class="usage-pill" style="border-left:2px solid var(--sand);background:rgba(200,184,154,0.04);">
+      <span class="usage-label" style="color:var(--sand);">Sand — #C8B89A</span>
+      <span class="usage-text">Rover vehicle · neutral UI · body copy · terrain elements</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TYPOGRAPHY -->
+<section class="section">
+  <div class="section-title">02 · Typography</div>
+  <table class="type-table">
+    <tr>
+      <td><span class="type-label">Display · Robotech GP</span><span class="type-spec">48–64px · 900 · letter-spacing: 3px</span></td>
+      <td><span style="font-family:'Orbitron',monospace;font-size:38px;font-weight:900;color:var(--pink);text-shadow:0 0 20px var(--pink-glow);letter-spacing:3px;line-height:1;">MISSION<br>DISARM</span></td>
+    </tr>
+    <tr>
+      <td><span class="type-label">Heading · Orbitron</span><span class="type-spec">18–24px · 700 · letter-spacing: 2px</span></td>
+      <td><span style="font-family:'Orbitron',monospace;font-size:20px;font-weight:700;color:var(--white);letter-spacing:2px;">WAR TRIVIA CHALLENGE</span></td>
+    </tr>
+    <tr>
+      <td><span class="type-label">Question / UI · Orbitron</span><span class="type-spec">14–16px · 400 · line-height: 1.7</span></td>
+      <td><span style="font-family:'Orbitron',monospace;font-size:14px;font-weight:400;color:rgba(255,255,255,0.85);line-height:1.7;max-width:400px;display:block;">Sun Tzu wrote 'Know yourself and know your enemy and in a hundred battles you will never be ___.'</span></td>
+    </tr>
+    <tr>
+      <td><span class="type-label">Label / Cap · Orbitron</span><span class="type-spec">8–10px · 400 · letter-spacing: 4px</span></td>
+      <td>
+        <span style="font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--pink);text-transform:uppercase;display:block;margin-bottom:6px;">QUESTION 1 / 5</span>
+        <span style="font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--teal);text-transform:uppercase;">CORRECT — TARGET NEUTRALIZED</span>
+      </td>
+    </tr>
+    <tr>
+      <td><span class="type-label">Body / Flavor · Courier New</span><span class="type-spec">11–13px · monospace · color: muted</span></td>
+      <td><span style="font-family:'Courier New',monospace;font-size:12px;color:rgba(255,255,255,0.55);line-height:1.8;max-width:400px;display:block;">This foundational principle of The Art of War emphasizes that self-awareness and intelligence about the adversary are the twin pillars of military success.</span></td>
+    </tr>
+  </table>
+  <div style="margin-top:16px;padding:12px 16px;background:var(--surface);border:1px solid var(--faint);font-family:var(--font-body);font-size:10px;color:#555;line-height:2;">
+    <strong style="color:var(--pink);font-family:var(--font-display);font-size:8px;letter-spacing:3px;">NOTE: </strong>Robotech GP is a commercial display face. Acquire .ttf license for game use. Orbitron (Google Fonts) is the approved fallback and secondary UI font. Courier New is system-native for body/flavor text.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMPONENTS -->
+<section class="section">
+  <div class="section-title">03 · Core Components</div>
+  <div class="comp-grid">
+    <div class="comp-block">
+      <span class="comp-label">Buttons</span>
+      <button class="btn btn-primary">Next Question</button>
+      <button class="btn btn-teal">Understood</button>
+      <button class="btn btn-ghost">Menu</button>
+    </div>
+    <div class="comp-block">
+      <span class="comp-label">HUD Stats Bar</span>
+      <div class="hud-row">
+        <div class="hud-stat"><div class="hud-value">5</div><div class="hud-label">Questions</div></div>
+        <div class="hud-stat"><div class="hud-value" style="color:var(--sand);">Mixed</div><div class="hud-label">Difficulty</div></div>
+        <div class="hud-stat"><div class="hud-value" style="font-size:12px;letter-spacing:1px;">War &amp; Peace</div><div class="hud-label">Category</div></div>
+      </div>
+    </div>
+    <div class="comp-block">
+      <span class="comp-label">Answer Choices</span>
+      <button class="answer-btn">Victorious</button>
+      <button class="answer-btn wrong">Outnumbered</button>
+      <button class="answer-btn correct">Defeated ✓</button>
+      <button class="answer-btn">Surprised</button>
+    </div>
+    <div class="comp-block">
+      <span class="comp-label">Feedback Panels</span>
+      <div class="feedback feedback-ok">
+        <span class="feedback-status" style="color:var(--teal);">Correct — Target Neutralized</span>
+        <span class="feedback-body">God instructed Gideon to reduce his army to 300 men, then defeat 135,000 Midianites — victory through strategy, not numbers.</span>
+      </div>
+      <div class="feedback feedback-fail" style="margin-top:10px;">
+        <span class="feedback-status" style="color:var(--pink);">Negative — Mission Compromised</span>
+        <span class="feedback-body">MAD held that any nuclear first strike results in total annihilation of both attacker and defender.</span>
+      </div>
+    </div>
+    <div class="comp-block">
+      <span class="comp-label">Progress Tracker</span>
+      <div style="font-size:8px;letter-spacing:3px;color:var(--pink);margin-bottom:6px;">QUESTION 1 / 5</div>
+      <div class="progress-track"><div class="progress-fill" style="width:20%;"></div></div>
+      <div style="font-size:8px;letter-spacing:3px;color:var(--pink);margin-bottom:6px;">QUESTION 3 / 5</div>
+      <div class="progress-track"><div class="progress-fill" style="width:60%;"></div></div>
+      <div style="font-size:8px;letter-spacing:3px;color:var(--teal);margin-bottom:6px;">COMPLETE</div>
+      <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--teal);box-shadow:0 0 8px rgba(78,205,196,0.5);"></div></div>
+    </div>
+    <div class="comp-block">
+      <span class="comp-label">Landmine HUD / Intel Panel</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-size:9px;letter-spacing:2px;color:var(--pink);">LANDMINES: <span style="color:var(--white);font-size:16px;font-weight:700;">12</span></div>
+        <div style="font-size:9px;letter-spacing:2px;color:var(--sand);">SCORE: <span style="color:var(--white);">3480</span></div>
+      </div>
+      <div class="intel-panel">
+        <div class="intel-title">INTEL</div>
+        <div class="intel-body">Operation Clean Up. Navigate rover<br>to detonate rogue Landmines.</div>
+        <button class="btn btn-primary" style="display:block;width:100%;margin-top:12px;text-align:center;font-size:8px;">UNDERSTOOD?</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SPACING -->
+<section class="section">
+  <div class="section-title">04 · Spacing Scale</div>
+  <div class="spacing-row">
+    <div class="space-item"><div class="space-block" style="height:4px;"></div><span class="space-val">4</span><span class="space-name">xs</span></div>
+    <div class="space-item"><div class="space-block" style="height:8px;"></div><span class="space-val">8</span><span class="space-name">sm</span></div>
+    <div class="space-item"><div class="space-block" style="height:12px;"></div><span class="space-val">12</span><span class="space-name">md</span></div>
+    <div class="space-item"><div class="space-block" style="height:16px;"></div><span class="space-val">16</span><span class="space-name">lg</span></div>
+    <div class="space-item"><div class="space-block" style="height:24px;"></div><span class="space-val">24</span><span class="space-name">xl</span></div>
+    <div class="space-item"><div class="space-block" style="height:32px;"></div><span class="space-val">32</span><span class="space-name">2xl</span></div>
+    <div class="space-item"><div class="space-block" style="height:48px;"></div><span class="space-val">48</span><span class="space-name">3xl</span></div>
+  </div>
+  <div style="margin-top:14px;font-family:var(--font-body);font-size:10px;color:#555;letter-spacing:1px;">Base unit: 4px · Component internals: 12–16px · Section gaps: 24–48px</div>
+</section>
+
+<hr class="divider">
+
+<!-- MOTION -->
+<section class="section">
+  <div class="section-title">05 · Motion Tokens</div>
+  <div class="motion-grid">
+    <div class="motion-card"><span class="motion-name">Instant</span><span class="motion-val">80ms ease-out</span><span class="motion-use">Button press, icon tap</span></div>
+    <div class="motion-card"><span class="motion-name">Quick</span><span class="motion-val">150ms ease-out</span><span class="motion-use">Answer reveal, hover states</span></div>
+    <div class="motion-card"><span class="motion-name">Standard</span><span class="motion-val">300ms ease-in-out</span><span class="motion-use">Panel slide, progress fill</span></div>
+    <div class="motion-card"><span class="motion-name">Dramatic</span><span class="motion-val">600ms cubic-bezier<br>(.22,1,.36,1)</span><span class="motion-use">Screen transitions, score pop</span></div>
+    <div class="motion-card"><span class="motion-name">Glow Pulse</span><span class="motion-val">2s ease-in-out<br>infinite alternate</span><span class="motion-use">Logo, active landmine, danger</span></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EFFECTS -->
+<section class="section">
+  <div class="section-title">06 · Visual Effects &amp; Texture</div>
+  <div class="effects-grid">
+    <div class="effect-card">
+      <span class="effect-label" style="color:var(--pink);">Tactical Grid Overlay</span>
+      <div class="effect-demo" style="background-image:linear-gradient(rgba(255,45,120,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,45,120,0.08) 1px,transparent 1px);background-size:20px 20px;border:1px solid var(--faint);"></div>
+      <span class="effect-desc">Applied to all backgrounds &amp; panels. Pink grid lines at 4% opacity, 20–32px cells.</span>
+    </div>
+    <div class="effect-card">
+      <span class="effect-label" style="color:var(--pink);">Neon Glow — Pink</span>
+      <div class="effect-demo" style="position:relative;">
+        <div style="position:absolute;width:50px;height:50px;background:var(--pink);border-radius:50%;filter:blur(18px);opacity:0.6;"></div>
+        <span style="position:relative;font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:#fff;text-shadow:0 0 12px var(--pink),0 0 24px var(--pink-glow);">DISARM</span>
+      </div>
+      <span class="effect-desc">CSS text-shadow: 0 0 12px #ff2d78, 0 0 24px rgba(255,45,120,0.35). Logo &amp; danger states.</span>
+    </div>
+    <div class="effect-card">
+      <span class="effect-label" style="color:var(--teal);">Teal Edge Glow</span>
+      <div class="effect-demo" style="border:1px solid rgba(78,205,196,0.6);box-shadow:0 0 10px rgba(78,205,196,0.15) inset, 0 0 10px rgba(78,205,196,0.1);">
+        <span style="font-size:9px;letter-spacing:3px;color:var(--teal);">TARGET NEUTRALIZED</span>
+      </div>
+      <span class="effect-desc">box-shadow: inset + outer glow at 0.15 opacity. Correct answer &amp; success panels.</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- VOICE -->
+<section class="section">
+  <div class="section-title">07 · Microcopy Voice &amp; Tone</div>
+  <div class="voice-grid">
+    <div class="voice-block" style="border:1px solid var(--border-teal);background:rgba(78,205,196,0.03);">
+      <span class="voice-title" style="color:var(--teal);">✓ Use — Military Ops Register</span>
+      <div class="voice-list" style="color:rgba(255,255,255,0.7);">
+        CORRECT — TARGET NEUTRALIZED<br>
+        NEGATIVE — MISSION COMPROMISED<br>
+        NEXT QUESTION<br>
+        OPERATION CLEAN UP<br>
+        UNDERSTOOD?<br>
+        INTEL<br>
+        WAR TRIVIA CHALLENGE<br>
+        DISARMING THE VIOLENT MIND
+      </div>
+    </div>
+    <div class="voice-block" style="border:1px solid var(--border-pink);background:rgba(255,45,120,0.03);">
+      <span class="voice-title" style="color:var(--pink);">✗ Avoid — Consumer App Tropes</span>
+      <div class="voice-list" style="color:rgba(255,255,255,0.4);text-decoration:line-through;">
+        Great job! 🎉<br>
+        Try again!<br>
+        Click here<br>
+        Submit answer<br>
+        Loading...<br>
+        Play now!<br>
+        Enter your name<br>
+        You're doing great!
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="sys-footer">
+  <span class="footer-text">Mission Disarm Design System · v1.0 · April 2026</span>
+  <span class="footer-text">Elisabeth Boylan Ltd. · elisabethboylan.com</span>
+  <span class="footer-text">Fonts: Orbitron (Google) · Robotech GP (licensed)</span>
+</footer>
+
+</body>
+</html>

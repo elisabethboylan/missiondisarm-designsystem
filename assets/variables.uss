@@ -1,0 +1,363 @@
+/* ============================================================
+   Mission Disarm Design System — variables.uss
+   Unity UI Toolkit CSS Variables
+   Drop in: Assets/UI/Styles/variables.uss
+   Import in all other .uss files via @import
+   ============================================================ */
+
+:root {
+
+    /* ── COLORS ─────────────────────────────────────── */
+    --color-black:       rgb(10, 10, 10);
+    --color-pink:        rgb(255, 45, 120);
+    --color-teal:        rgb(78, 205, 196);
+    --color-sand:        rgb(200, 184, 154);
+    --color-surface:     rgb(17, 17, 17);
+    --color-surface-2:   rgb(26, 26, 26);
+    --color-white:       rgb(232, 232, 224);
+    --color-muted:       rgba(232, 232, 224, 0.5);
+
+    /* Alpha variants */
+    --color-pink-dim:    rgba(255, 45, 120, 0.15);
+    --color-pink-glow:   rgba(255, 45, 120, 0.35);
+    --color-teal-dim:    rgba(78, 205, 196, 0.10);
+    --color-border-pink: rgba(255, 45, 120, 0.30);
+    --color-border-teal: rgba(78, 205, 196, 0.30);
+    --color-faint:       rgba(255, 255, 255, 0.06);
+
+    /* ── SPACING ─────────────────────────────────────── */
+    --space-xs:  4px;
+    --space-sm:  8px;
+    --space-md:  12px;
+    --space-lg:  16px;
+    --space-xl:  24px;
+    --space-2xl: 32px;
+    --space-3xl: 48px;
+
+    /* ── TYPOGRAPHY ──────────────────────────────────── */
+    --font-display:  "Orbitron";   /* Use RobotechGP when asset available */
+    --font-ui:       "Orbitron";
+    --font-body:     "Courier New";
+
+    --size-display:  48px;
+    --size-heading:  20px;
+    --size-question: 15px;
+    --size-label:    9px;
+    --size-body:     11px;
+
+    /* ── BORDERS ─────────────────────────────────────── */
+    --border-width:    1px;
+    --border-radius:   2px;
+
+    /* ── TRANSITIONS ─────────────────────────────────── */
+    --duration-instant:  80ms;
+    --duration-quick:    150ms;
+    --duration-standard: 300ms;
+    --duration-dramatic: 600ms;
+}
+
+
+/* ============================================================
+   BASE ELEMENTS
+   ============================================================ */
+
+.md-root {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    -unity-font-definition: url("project://database/Assets/Fonts/Orbitron-Regular.asset");
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+    background-color: rgba(0,0,0,0);
+    border-width: 1px;
+    border-radius: var(--border-radius);
+    padding: 11px 22px;
+    font-size: var(--size-label);
+    letter-spacing: 3px;
+    -unity-text-align: middle-center;
+    transition-property: background-color;
+    transition-duration: var(--duration-quick);
+    transition-timing-function: ease-out;
+}
+
+.btn-primary {
+    border-color: var(--color-pink);
+    color: var(--color-pink);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-pink-dim);
+}
+
+.btn-primary:active {
+    background-color: var(--color-pink-glow);
+    scale: 0.98;
+}
+
+.btn-teal {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+}
+
+.btn-teal:hover {
+    background-color: var(--color-teal-dim);
+}
+
+.btn-ghost {
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(232, 232, 224, 0.35);
+}
+
+
+/* ============================================================
+   ANSWER BUTTONS (War Trivia)
+   ============================================================ */
+
+.answer-btn {
+    background-color: rgba(255, 45, 120, 0.06);
+    border-color: var(--color-border-pink);
+    border-width: 1px;
+    border-radius: var(--border-radius);
+    color: rgba(232, 232, 224, 0.70);
+    padding: 13px 14px;
+    margin-bottom: var(--space-sm);
+    font-size: var(--size-label);
+    letter-spacing: 2px;
+    -unity-text-align: middle-left;
+    width: 100%;
+    transition-duration: var(--duration-quick);
+}
+
+.answer-btn:hover {
+    background-color: rgba(255, 45, 120, 0.12);
+}
+
+.answer-btn--correct {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+    background-color: var(--color-teal-dim);
+}
+
+.answer-btn--wrong {
+    border-color: rgba(255, 45, 120, 0.30);
+    color: rgba(255, 45, 120, 0.50);
+    opacity: 0.6;
+}
+
+.answer-btn--disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+
+.progress-track {
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.08);
+    width: 100%;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--color-pink);
+    transition-property: width;
+    transition-duration: var(--duration-standard);
+    transition-timing-function: ease-in-out;
+}
+
+.progress-fill--complete {
+    background-color: var(--color-teal);
+}
+
+
+/* ============================================================
+   FEEDBACK PANELS
+   ============================================================ */
+
+.feedback-panel {
+    padding: 14px 16px;
+    border-width: 1px;
+    border-radius: var(--border-radius);
+    margin-top: var(--space-sm);
+}
+
+.feedback-panel--correct {
+    border-color: var(--color-border-teal);
+    background-color: rgba(78, 205, 196, 0.04);
+}
+
+.feedback-panel--wrong {
+    border-color: var(--color-border-pink);
+    background-color: rgba(255, 45, 120, 0.04);
+}
+
+.feedback-status {
+    font-size: var(--size-label);
+    letter-spacing: 4px;
+    margin-bottom: var(--space-sm);
+}
+
+.feedback-status--correct { color: var(--color-teal); }
+.feedback-status--wrong   { color: var(--color-pink); }
+
+.feedback-body {
+    font-size: var(--size-body);
+    color: var(--color-muted);
+    white-space: normal;
+    -unity-font-definition: url("project://database/Assets/Fonts/CourierNew.asset");
+}
+
+
+/* ============================================================
+   HUD ELEMENTS (Landmine Game)
+   ============================================================ */
+
+.hud-stat {
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 14px;
+    border-color: var(--color-border-teal);
+    border-width: 1px;
+    border-radius: var(--border-radius);
+}
+
+.hud-value {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: var(--color-white);
+}
+
+.hud-label {
+    font-size: 7px;
+    letter-spacing: 3px;
+    color: var(--color-teal);
+    margin-top: 4px;
+}
+
+.hud-counter {
+    font-size: var(--size-label);
+    letter-spacing: 2px;
+    color: var(--color-pink);
+}
+
+.hud-counter-value {
+    font-size: var(--size-heading);
+    -unity-font-style: bold;
+    color: var(--color-white);
+}
+
+
+/* ============================================================
+   INTEL PANEL (Landmine Game)
+   ============================================================ */
+
+.intel-panel {
+    border-color: var(--color-border-teal);
+    border-width: 1px;
+    padding: 14px;
+    background-color: rgba(0, 0, 0, 0.40);
+}
+
+.intel-title {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--color-teal);
+    -unity-text-align: upper-center;
+    margin-bottom: var(--space-sm);
+}
+
+.intel-body {
+    font-size: 10px;
+    color: var(--color-pink);
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("project://database/Assets/Fonts/CourierNew.asset");
+    white-space: normal;
+}
+
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.text-display {
+    font-size: var(--size-display);
+    -unity-font-style: bold;
+    color: var(--color-pink);
+    letter-spacing: 3px;
+}
+
+.text-heading {
+    font-size: var(--size-heading);
+    -unity-font-style: bold;
+    color: var(--color-white);
+    letter-spacing: 2px;
+}
+
+.text-question {
+    font-size: var(--size-question);
+    color: rgba(232, 232, 224, 0.85);
+    white-space: normal;
+}
+
+.text-label-pink {
+    font-size: var(--size-label);
+    letter-spacing: 4px;
+    color: var(--color-pink);
+}
+
+.text-label-teal {
+    font-size: var(--size-label);
+    letter-spacing: 4px;
+    color: var(--color-teal);
+}
+
+.text-body {
+    font-size: var(--size-body);
+    color: var(--color-muted);
+    -unity-font-definition: url("project://database/Assets/Fonts/CourierNew.asset");
+}
+
+
+/* ============================================================
+   SURFACE / PANEL
+   ============================================================ */
+
+.surface {
+    background-color: var(--color-surface);
+    border-color: var(--color-faint);
+    border-width: 1px;
+    border-radius: var(--border-radius);
+    padding: var(--space-lg) var(--space-xl);
+}
+
+.surface-2 {
+    background-color: var(--color-surface-2);
+    border-color: var(--color-faint);
+    border-width: 1px;
+    border-radius: var(--border-radius);
+}
+
+
+/* ============================================================
+   SECTION HEADER
+   ============================================================ */
+
+.section-header {
+    font-size: var(--size-label);
+    letter-spacing: 5px;
+    color: var(--color-teal);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-border-teal);
+    padding-bottom: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
